@@ -13,11 +13,12 @@ SOURCES=$(wildcard $(SRCDIR)/*.asm)
 OBJECTS=$(shell find $(OBJECTSDIR) -name *.o)
 
 
-httpd: main.o
+%.o: %.asm
+	$(AS) $(ASFLAGS) -o $(subst $(SRCDIR),$(OBJECTSDIR),$@) $<
+
+httpd: $(SOURCES:.asm=.o)
 	ld -m elf_x86_64 -o httpd $(OBJECTS)
-	
-main.o: $(SOURCES)
-	$(AS) $(ASFLAGS) -o $(OBJECTSDIR)/$@ $(subst .o,.asm,$(SRCDIR)/$@)
+
 
 clean:
 	rm -f $(OBJECTSDIR)/*
