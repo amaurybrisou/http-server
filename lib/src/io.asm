@@ -10,3 +10,4 @@ print:
   call sys_write
   stackpop
   ret
+  

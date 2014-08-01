@@ -4,7 +4,7 @@
 ;ouput:
 ; rsi : output string with LFCR
 ; rdx : strlen
-itoa:
+_itoa:
   stackpush
   mov dword [rsi], 0x0a0d ; this line is optional, if you don't want it, set rcx to 0 instead of 2
   mov rbx, 10
@@ -22,3 +22,12 @@ itoa:
   stackpop
   ret
 
+_strlen:
+  stackpush
+  xor rax, rax
+  r_strlen:
+  inc rax
+  cmp byte [rsi+rax], 0x0
+  jne r_strlen
+  stackpop
+  ret

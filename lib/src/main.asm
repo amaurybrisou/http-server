@@ -15,6 +15,10 @@ section .text
 global _start
   
 _start:
+  ; just a section for tests
+  jmp _main_start
+  
+_main_start:
   mov rsi, banner
   mov rdx, banner_len
   call print
@@ -23,6 +27,23 @@ _start:
   mov byte [server_fd], al
   call sys_bind
   
-  call sys_exit_group
+  call sys_listen
+  
+  _loop:
+  call sys_accept
+  mov rdi, rax ; mov client socket fd to rdi
+  
+  call sys_recv
+  ; rdi still hold client socket fd
+  call sys_send
+  
+  call sys_close
+  
+  jmp _loop
+  
+  
+  
+
+_manage:
   
   

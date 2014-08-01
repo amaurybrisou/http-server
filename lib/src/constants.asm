@@ -1,3 +1,4 @@
+%define MAX_QUAD 0xFFFFFFFFFFFFFFFF
 ;System Call Values
 %define SYS_WRITE 1 ;int fd, const void *buf, size_t count
 %define SYS_LSEEK 8 ;int fd, off_t offset, int whence

@@ -20,4 +20,8 @@ sockaddr_in:
   dw LISTEN_PORT
   dd INADDR_ANY
 
-sockaddr_in_len: db 5
+timeval:
+  tv_sec  dq 0
+  tv_usec dq 0
+  
+_test: db "Bonjour", 0x0a, 0x0d
