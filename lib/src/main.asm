@@ -19,17 +19,20 @@ _start:
   jmp _main_start
   
 _main_start:
-  mov rsi, banner
-  mov rdx, banner_len
+  mov rsi, [rel banner]
+  mov rdx, [rel banner_len]
   call print
   
   call sys_socket
-  mov byte [server_fd], al
+  cmp rax, 0
+  je exit_sys_socket
+  
+  mov byte [rel server_fd], al
   call sys_bind
   
   call sys_listen
   
-  _loop:
+  ._loop:
   call sys_accept
   mov rdi, rax ; mov client socket fd to rdi
   
@@ -39,7 +42,7 @@ _main_start:
   
   call sys_close
   
-  jmp _loop
+  jmp ._loop
   
   
   
