@@ -8,9 +8,11 @@ db "| | |_ | | '__| | | | |  / _` |  / _` | | '_ \  | '__|  / _ \   / _ \   / _ 
 db "| |__| | | |    | | | | | (_| | | (_| | | | | | | |    | (_) | | (_) | |  __/",0x0a
 db " \_____| |_|    |_| |_|  \__, |  \__,_| |_| |_| |_|     \___/   \___/   \___|",0x0a
 db "                          __/ |                                              ",0x0a
-db "                         |___/                                               "
+db "                         |___/                                               ",0x0a
 
 banner_len: equ $-banner
+
+int_size: equ 8
 
 new_line: dw 0x0a0d
 new_line_len: equ $-new_line
@@ -25,3 +27,6 @@ timeval:
   tv_usec dq 0
   
 _test: db "Bonjour", 0x0a, 0x0d
+
+ERROR_WRITE_EAGAIN:  db "Error in Write : EAGAIN", 0x0a, 0x0d
+ERROR_WRITE_EAGAIN_LEN: equ $-ERROR_WRITE_EAGAIN

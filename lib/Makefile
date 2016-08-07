@@ -14,7 +14,7 @@ OBJECTS=$(shell find $(OBJECTSDIR) -name *.o)
 
 
 httpd: main.o
-	ld -m elf_x86_64 -o httpd $(OBJECTS)
+	ld -m elf_x86_64 -o $(OBJECTSDIR)/httpd $(OBJECTS)
 	
 main.o: $(SOURCES)
 	$(AS) $(ASFLAGS) -o $(OBJECTSDIR)/$@ $(subst .o,.asm,$(SRCDIR)/$@)

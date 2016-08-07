@@ -1,1 +1,1 @@
-make clean && make && clear && strace ./httpd
+cd lib && make clean && make && clear && strace ./bin/httpd

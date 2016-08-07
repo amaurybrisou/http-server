@@ -8,31 +8,34 @@ section .bss
 section .data
   %include "data.asm"
 section .text
+  %include "errors.asm"
   %include "syscalls.asm"
   %include "utils.asm"
   %include "io.asm"
 
 global _start
-  
+
 _start:
   ; just a section for tests
   jmp _main_start
   
 _main_start:
-  mov rsi, [rel banner]
-  mov rdx, [rel banner_len]
+  mov rsi, banner
+  mov rdx, banner_len
   call print
   
   call sys_socket
-  cmp rax, 0
-  je exit_sys_socket
+  ;call socket_error
   
-  mov byte [rel server_fd], al
+  mov byte [server_fd], al ; store the socket file descriptor
+  call sys_setsockopt ; SO_REUSADDR = 1
+  
   call sys_bind
+  ;call bind_error
   
   call sys_listen
   
-  ._loop:
+  _loop:
   call sys_accept
   mov rdi, rax ; mov client socket fd to rdi
   
@@ -42,11 +45,6 @@ _main_start:
   
   call sys_close
   
-  jmp ._loop
-  
-  
-  
-
-_manage:
+  jmp _loop
   
   

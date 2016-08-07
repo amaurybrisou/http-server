@@ -30,5 +30,7 @@
 %define SOCK_STREAM 1 
 %define IPPROTO_TCP 0 ; useless shortcut, it's the only valid value 
 
+%define SO_REUSEADDR 2
+%define SOL_SOCKET 1
 ;bind args / sockaddr_in
 %define INADDR_ANY 0

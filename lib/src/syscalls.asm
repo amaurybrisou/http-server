@@ -8,9 +8,24 @@ sys_socket:
   stackpop
   ret
 
+sys_setsockopt:
+  stackpush
+  mov rbp, rsp
+  mov QWORD [rbp-8], 1
+  mov r10, rbp
+  sub r10, 8
+  mov r8, int_size
+  mov rdi, [server_fd]
+  mov rdx, SO_REUSEADDR
+  mov rsi, SOL_SOCKET
+  mov rax, SYS_SETSOCKOPT
+  syscall
+  stackpop
+  ret
+
 sys_bind:
   stackpush
-  mov rdi, [rel server_fd]
+  mov rdi, [server_fd]
   mov rsi, sockaddr_in
   mov rdx, 16
   mov rax, SYS_BIND
@@ -20,7 +35,7 @@ sys_bind:
 
 sys_listen:
   stackpush
-  mov rdi, [rel server_fd]
+  mov rdi, [server_fd]
   mov rsi, MAX_QUAD
   mov rax, SYS_LISTEN
   syscall
@@ -29,7 +44,7 @@ sys_listen:
   
 sys_accept:
   stackpush
-  mov rdi, [rel server_fd]
+  mov rdi, [server_fd]
   xor rsi, rsi
   xor rdx, rdx
   mov rax, SYS_ACCEPT
