@@ -1,15 +1,15 @@
 %include "macro.asm"
 %include "constants.asm"
 
-%define LISTEN_PORT 0x901f ; PORT : 8080 Network byte order, use 0x50 for port 80
+%define LISTEN_PORT 0x902f ; PORT : 8080 Network byte order, use 0x50 for port 80
 
 section .bss
   %include "bss.asm"
 section .data
   %include "data.asm"
 section .text
-  %include "errors.asm"
   %include "syscalls.asm"
+  %include "errors.asm"
   %include "utils.asm"
   %include "io.asm"
 
@@ -20,31 +20,28 @@ _start:
   jmp _main_start
   
 _main_start:
-  mov rsi, banner
-  mov rdx, banner_len
+  lea rsi, [rel banner]
+  lea rdx, [rel banner_len]
   call print
   
   call sys_socket
-  ;call socket_error
-  
   mov byte [server_fd], al ; store the socket file descriptor
+  mov rdi, [server_fd]
   call sys_setsockopt ; SO_REUSADDR = 1
-  
   call sys_bind
-  ;call bind_error
-  
-  call sys_listen
+  call sys_listen 
+  call sys_accept
+  mov [clients_fd], rax;store clients_fd
+  mov rdi, rax ; 1 
   
   _loop:
-  call sys_accept
-  mov rdi, rax ; mov client socket fd to rdi
+
+    mov rdi, [clients_fd]
   
-  call sys_recv
-  ; rdi still hold client socket fd
-  call sys_send
-  
-  call sys_close
-  
-  jmp _loop
-  
-  
+    call sys_recv
+    call sys_send
+
+    jmp _loop
+
+    mov rdi, 0
+    call sys_exit
