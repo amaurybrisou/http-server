@@ -1,2 +1,3 @@
-server_fd: resb 1
-clients_fd: resb 1
+server_fd: resw 4
+clients_fd: resw 4
+dictionary: resb 0x1000

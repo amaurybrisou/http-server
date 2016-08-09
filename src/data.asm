@@ -1,4 +1,4 @@
-;buffer: dd 1
+filepath: dd "dictionary.json"
 
 banner: 
 db " _____           _   _                                                       ",0x0a
@@ -21,6 +21,7 @@ sockaddr_in:
   dw AF_INET
   dw LISTEN_PORT
   dd INADDR_ANY
+sockaddr_len: equ $-sockaddr_in
 
 timeval:
   tv_sec  dq 0

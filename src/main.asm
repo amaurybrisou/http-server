@@ -8,7 +8,8 @@ section .bss
 section .data
   %include "data.asm"
 section .text
-  %include "syscalls.asm"
+  %include "syscalls/net.asm"
+  %include "syscalls/file.asm"
   %include "errors.asm"
   %include "utils.asm"
   %include "io.asm"
@@ -33,13 +34,33 @@ _main_start:
   call sys_accept
   mov [clients_fd], rax;store clients_fd
   mov rdi, rax ; 1 
+
+  push rdi
+
+  lea rdi, [rel filepath]
+  call sys_open
+  mov rdi, rax
+  call sys_read
+
+  ; call sys_getpeername
   
+  ; lea rsi, [rel sockaddr_in+4] ; address of the remote IP
+  ; call parse_addr
+  ; call print
+  pop rdi
+
   _loop:
 
-    mov rdi, [clients_fd]
-  
+    mov rdi, [rel clients_fd]
+
     call sys_recv
-    call sys_send
+    
+    call _strlen
+    mov rdx, rax
+    call print
+    
+
+    ;call sys_send
 
     jmp _loop
 

@@ -107,7 +107,7 @@ sys_recv: ;arg: rdi filled with connected socket value
 sys_send:
   save
   ;sub rsp, BUFFER_SIZE
-  lea rsi, [rsp-BUFFER_SIZE] ;point to the stack holding the string
+  ;lea rsi, [rsp-BUFFER_SIZE] ;point to the stack holding the string
   xor r10, r10
   call _strlen
   mov rdx, rax ; rax contains the string len
@@ -126,7 +126,16 @@ sys_close:
   call isError
   done
   
-  
+sys_getpeername ; args rdi: socket_fd
+  save
+  push sockaddr_len
+  lea rsi, [rel sockaddr_in] ;2nd
+  mov rdx, rsp ; 3rd
+  mov rax, SYS_GETPEERNAME
+  syscall
+  call isError
+  done
+
 sys_write: ; args: RDI=FD, rsi=address to print; rdx: len
   save
   mov rdi, STDOUT
