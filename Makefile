@@ -1,6 +1,6 @@
 AS:=yasm
 CC:=gcc
-ASFLAGS:=-g dwarf2 -f elf64 -a x86
+ASFLAGS:=-g dwarf2 -f elf64 -a x86 
 #ASFLAGS:=-f elf64
 #CFLAGS:=-g -Wall -s -Os
 CFLAGS:=-Wall -s -Os -g

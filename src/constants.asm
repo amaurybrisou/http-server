@@ -1,4 +1,6 @@
+%define MINUS 	0x2D
 %define INT_VAL 8
+%define QUAD_SIZE 64
 %define MAX_QUAD 0xFFFFFFFFFFFFFFFF
 ;System Call Values
 %define SYS_READ 0 ;int fd, const void *buf, size_t count

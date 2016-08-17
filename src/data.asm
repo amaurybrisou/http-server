@@ -1,5 +1,9 @@
 filepath: dd "dictionary.json"
 
+buffer: times 16 db 0
+bufferend:
+    db 0
+
 banner: 
 db " _____           _   _                                                       ",0x0a
 db "/ ____|         (_) | |                                                      ",0x0a

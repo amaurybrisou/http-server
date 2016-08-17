@@ -5,4 +5,5 @@
 	* [/usr/include/asm-generic/errno-base.h](/usr/include/asm-generic/errno-base.h)
 	* [/usr/include/asm-generic/errno.h](/usr/include/asm-generic/errno.h)
 * Datatypes : [http://stackoverflow.com/questions/10168743/x86-assembly-which-variable-size-to-use-db-dw-dd](http://stackoverflow.com/questions/10168743/x86-assembly-which-variable-size-to-use-db-dw-dd)
+* Jumps : [http://unixwiz.net/techtips/x86-jumps.html](http://unixwiz.net/techtips/x86-jumps.html)
 * struct members are globally available

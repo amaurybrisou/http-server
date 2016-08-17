@@ -8,7 +8,6 @@ sys_open: ; args rdi: pathname
 
 sys_read: ; args rdi: file_fd
   save
-  mov rsi, dictionary
   mov rdx, BUFFER_SIZE
   mov rax, SYS_READ
   syscall
